@@ -1,0 +1,2 @@
+module GaritasHelper
+end

@@ -1,0 +1,33 @@
+<header>
+	<h1>Listado de ciudades fronterizas</h1>
+</header>
+
+<div id="data-table">
+	<table>
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Latitud</th>
+				<th>Longitud</th>
+				<th>Codigo de Pais</th>
+				<th>Estado</th>
+				<th>Numero de puertos</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @cities.each do |city| %>
+			<tr>
+				<td><%= city.name%></td>
+				<td><%= city.latitude %></td>
+				<td><%= city.longitude %></td>
+				<td><%= city.country_code %></td>
+				<td><%= city.state %></td>
+				<td><%= city.ports.count %></td>
+				<td><%= link_to "Ver puertos", city_ports_path(city) %></td>
+				<td><%= link_to "Editar", edit_city_path(city) %></td>
+				<td><%= link_to "Eliminar", city, confirm: "Esta seguro?", method: :delete %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

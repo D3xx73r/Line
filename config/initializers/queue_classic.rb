@@ -1,0 +1,1 @@
+ENV["DATABASE_URL"] = "postgres://postgres:swordfish123@localhost/garitas_development"

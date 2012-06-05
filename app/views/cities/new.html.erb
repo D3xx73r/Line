@@ -1,0 +1,62 @@
+<h1>Agregar nueva ciudad</h1>
+
+<%= form_for @city do |f| %>
+<% if @city.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@city.errors.count, "error") %> han prohibido registrar esta ciudad:</h2>
+
+	<ul>
+		<% @city.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<div id="input-name">
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+</div>
+<div id="input-latitude">
+	<%= f.label :latitude, "Latitud" %>
+	<%= f.text_field :latitude %>
+</div>
+<div id="input-longitude">
+	<%= f.label :latitude, "Longitud" %>
+	<%= f.text_field :longitude %>
+</div>
+<div id="input-country-code">
+	<%= f.label :country_code, "Codigo de pais" %>
+	<%= f.text_field :country_code %>
+</div>
+<div id="input-state">
+	<%= f.label :state, "Estado" %>
+	<%= f.text_field :state %>
+</div>
+<div id="nested-fields-for-port">
+	<%= f.fields_for :ports do |p| %>
+	<div id="input-port-title">
+		<%= p.label :title, "Nombre del puerto" %>
+		<%= p.text_field :title %>
+	</div>
+	<div id="input-port-number">
+		<%= p.label :port_number, "Numero de puerto" %>
+		<%= p.text_field :port_number %>
+	</div>
+	<% end %>
+</div>
+<div id="nested-fields-for-port">
+	<%= f.fields_for :ports do |p| %>
+	<div id="input-port-title">
+		<%= p.label :title, "Nombre del puerto" %>
+		<%= p.text_field :title %>
+	</div>
+	<div id="input-port-number">
+		<%= p.label :port_number, "Numero de puerto" %>
+		<%= p.text_field :port_number %>
+	</div>
+	<% end %>
+</div>
+<div id="submit">
+	<%= f.submit "Guardar" %>
+</div>
+<% end %>
