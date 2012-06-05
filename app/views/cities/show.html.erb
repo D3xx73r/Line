@@ -1,2 +1,19 @@
 <h1>Datos para:<%= @city.name %></h1>
 
+<div id="city-data">
+	<ul>
+		<li><%= @city.name %></li>
+		<li><%= @city.latitude %></li>
+		<li><%= @city.longitude %></li>
+		<li><%= @city.country_code %></li>
+		<li><%= @city.state %></li>
+	</ul>
+	<div id="city-ports">
+		<ul>
+		<% @city.ports.each do |port| %>
+			<li><%= port.port_number %></li>
+			<li><%= port.title %></li>
+		<% end %>
+		</ul>
+	</div>
+</div>
