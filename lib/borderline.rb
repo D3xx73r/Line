@@ -19,7 +19,7 @@ module BorderLine
       end
       ports = Nokogiri::XML::Reader(doc.xpath('//port').to_s)
       ports.each do |port|
-        
+        #TODO get text from port node
       end
     end
   end

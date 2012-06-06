@@ -39,3 +39,7 @@ gem 'jquery-rails'
 gem 'queue_classic', '2.0.0'
 gem 'geocoder'
 gem 'nokogiri'
+
+group :test do
+  gem 'capybara'
+end
