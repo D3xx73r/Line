@@ -41,5 +41,7 @@ gem 'geocoder'
 gem 'nokogiri'
 
 group :test do
+  gem 'minitest'
   gem 'capybara'
+  gem 'factory_girl'
 end

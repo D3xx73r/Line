@@ -11,8 +11,8 @@
 	<div id="city-ports">
 		<ul>
 		<% @city.ports.each do |port| %>
-			<li><%= port.port_number %></li>
 			<li><%= port.title %></li>
+			<li><%= port.port_number %></li>
 		<% end %>
 		</ul>
 	</div>
