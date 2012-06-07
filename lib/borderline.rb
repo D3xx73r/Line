@@ -25,21 +25,21 @@ module BorderLine
   end
 
   class Geocode
+    # PI = 3.1415926535
+    RAD_PER_DEG = 0.017453293  #  PI/180
+
+    # the great circle distance d will be in whatever units R is in
+
+    Rmiles = 3956           # radius of the great circle in miles
+    Rkm = 6371              # radius in kilometers...some algorithms use 6367
+    Rfeet = Rmiles * 5282   # radius in feet
+    Rmeters = Rkm * 1000    # radius in meters
+    
     def self.fecth_location ip
       data = Geocoder.search ip
     end
 
-    def haversine_distance( lat1, lon1, lat2, lon2 )
-      # PI = 3.1415926535
-      RAD_PER_DEG = 0.017453293  #  PI/180
-
-      # the great circle distance d will be in whatever units R is in
-
-      Rmiles = 3956           # radius of the great circle in miles
-      Rkm = 6371              # radius in kilometers...some algorithms use 6367
-      Rfeet = Rmiles * 5282   # radius in feet
-      Rmeters = Rkm * 1000    # radius in meters
-
+    def self.haversine_distance( lat1, lon1, lat2, lon2 )
       distances = Hash.new   
       
       dlon = lon2 - lon1
