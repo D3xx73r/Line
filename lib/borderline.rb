@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'net/http'
 require 'open-uri'
 require 'geocoder'
+require 'json'
 
 module BorderLine
   class Client
@@ -12,15 +13,12 @@ module BorderLine
     end
 
     def self.parse_xml xml
-      border_line_array = []
-      x = 0
-      doc = Nokogiri::XML(xml) do |config|
-        config.strict.noent
-      end
-      ports = Nokogiri::XML::Reader(doc.xpath('//port').to_s)
-      ports.each do |port|
-        #TODO get text from port node
-      end
+      # doc = Nokogiri::XML.parse(xml)
+      #       reader = Nokogiri::XML::Reader(doc.xpath('//item').to_s)
+      #       reader.each do |node|
+      #         puts node.value
+      #       end
+      json = xml.to_json
     end
   end
 
@@ -35,7 +33,7 @@ module BorderLine
     Rfeet = Rmiles * 5282   # radius in feet
     Rmeters = Rkm * 1000    # radius in meters
     
-    def self.fecth_location ip
+    def self.fetch_location ip
       data = Geocoder.search ip
     end
 
@@ -68,6 +66,15 @@ module BorderLine
       distances["m"] = dMeters
       
       distances
+    end
+    
+    def self.get_closest_cities_from_user cities, geoip
+      cities.each do |city|
+        distance = self.haversine_distance(city.latitude.to_f, city.longitude.to_f, geoip['latitude'].to_f, geoip['longitude'].to_f)
+        if distance["km"] <= 5.0
+          return city
+        end
+      end
     end
   end
 end
