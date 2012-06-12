@@ -13,12 +13,11 @@ module BorderLine
     end
 
     def self.parse_xml xml
-      # doc = Nokogiri::XML.parse(xml)
-      #       reader = Nokogiri::XML::Reader(doc.xpath('//item').to_s)
-      #       reader.each do |node|
-      #         puts node.value
-      #       end
-      json = xml.to_json
+      doc = Nokogiri::XML.parse(xml)
+      reader = Nokogiri::XML::Reader(doc.xpath('//item').to_s)
+      reader.each do |node|
+        puts node.value
+      end
     end
   end
 
@@ -27,11 +26,7 @@ module BorderLine
     RAD_PER_DEG = 0.017453293  #  PI/180
 
     # the great circle distance d will be in whatever units R is in
-
-    Rmiles = 3956           # radius of the great circle in miles
-    Rkm = 6371              # radius in kilometers...some algorithms use 6367
-    Rfeet = Rmiles * 5282   # radius in feet
-    Rmeters = Rkm * 1000    # radius in meters
+    Rkm = 6371              # radius in kilometers
     
     def self.fetch_location ip
       data = Geocoder.search ip
@@ -55,23 +50,13 @@ module BorderLine
       a = (Math.sin(dlat_rad/2))**2 + Math.cos(lat1_rad) * Math.cos(lat2_rad) * (Math.sin(dlon_rad/2))**2
       c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a))
 
-      dMi = Rmiles * c          # delta between the two points in miles
       dKm = Rkm * c             # delta in kilometers
-      dFeet = Rfeet * c         # delta in feet
-      dMeters = Rmeters * c     # delta in meters
-
-      distances["mi"] = dMi
-      distances["km"] = dKm
-      distances["ft"] = dFeet
-      distances["m"] = dMeters
-      
-      distances
     end
     
     def self.get_closest_cities_from_user cities, geoip
       cities.each do |city|
         distance = self.haversine_distance(city.latitude.to_f, city.longitude.to_f, geoip['latitude'].to_f, geoip['longitude'].to_f)
-        if distance["km"] <= 5.0
+        if distance <= 5.0
           return city
         end
       end
